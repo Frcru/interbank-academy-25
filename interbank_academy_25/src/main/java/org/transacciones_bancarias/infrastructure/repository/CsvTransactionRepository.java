@@ -18,6 +18,7 @@ public class CsvTransactionRepository {
 
         try(BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
+            reader.readLine();
             while((line=reader.readLine())!=null){
                 Transaction transaction = csvParser.parseTransactionLine(line);
                 transactions.add(transaction);
