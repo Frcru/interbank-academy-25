@@ -7,7 +7,7 @@ import java.io.PrintStream;
 public class ConsoleReportAppareance {
     public void displayReport(TransactionReport report){
         PrintStream sys=System.out;
-        sys.println("Report de Transacciones");
+        sys.println("Reporte de Transacciones");
         sys.println("--------------------------------");
         sys.printf("Balance Final: %.2f%n",report.getFinalBalance());
         sys.printf("Transacción de Mayor monto: ID %s - %.2f%n",report.getHighestTransactionId(),report.getHighestTransactionAmount());
