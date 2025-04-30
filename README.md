@@ -1,66 +1,108 @@
-# Reto Técnico: Procesamiento de Transacciones Bancarias (CLI)
+# 📂 Lectura de CSV en Java 17
 
-## Objetivo:
+## 1. 📝 Introducción
 
-Desarrolla una aplicación de línea de comandos (CLI) que procese un archivo CSV con transacciones bancarias y genere un reporte que incluya:
+Este repositorio tiene por finalidad la lectura de un archivo CSV haciendo uso de **Java 17**, aplicando buenas prácticas de programación como:
 
-- **Balance Final:**  
-  Suma de los montos de las transacciones de tipo "Crédito" menos la suma de los montos de las transacciones de tipo "Débito".
+- ✅ Encapsulamiento  
+- ✅ Inmutabilidad  
+- ✅ Separación de responsabilidades  
+- ✅ Manejo de excepciones  
+- ✅ Uso de tipos adecuados de datos para operaciones financieras (`BigDecimal`)
 
-- **Transacción de Mayor Monto:**  
-  Identificar el ID y el monto de la transacción con el valor más alto.
+Se utilizaron bibliotecas estándar de Java:
 
-- **Conteo de Transacciones:**  
-  Número total de transacciones para cada tipo ("Crédito" y "Débito").
+- `java.io`
+- `java.math`
+- `java.util`
 
----
+Además, se empleó **JavaDoc** para la generación de documentación del código.
 
-## Instrucciones
+> 💡 **Nota**: Para hacer uso de JavaDoc con Maven, se debe agregar el siguiente plugin en el archivo `pom.xml`:
 
-1. **Repositorio Base:**  
-   Clona o haz un fork del repositorio base disponible en:  
-   `https://github.com/codeableorg/interbank-academy-25`
+```xml
+<build>
+    <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <version>3.5.0</version>
+            <executions>
+                <execution>
+                    <id>attach-javadocs</id>
+                    <goals>
+                        <goal>jar</goal>
+                    </goals>
+                </execution>
+            </executions>
+        </plugin>
+    </plugins>
+</build>
+```
+## 2. ▶️ Instrucciones de Ejecución
+### Requisitos Previos
+* Java 17 instalado
+* Maven instalado
 
-2. **Entrada de Datos:**  
-   La aplicación deberá leer un archivo CSV. Ejemplo de contenido:
+### Pasos para ejecutar la aplicación
+#### 1. Clonar el repositorio:
 
-   ```
-   id,tipo,monto
-   1,Crédito,100.00
-   2,Débito,50.00
-   3,Crédito,200.00
-   4,Débito,75.00
-   5,Crédito,150.00
-   ```
+#### usando bash o cmd:
+```
+git clone https://github.com/tu_usuario/tu_repositorio.git
+cd tu_repositorio
+```
+#### 2. Configurar la ejecución:
+Editar la configuración de ejecución del método main, agregando la ruta **absoluta del archivo CSV** como argumento del programa.
 
-3. **Salida del Programa:**  
-   La aplicación debe mostrar el reporte final en la terminal.  
-   Ejemplo de salida:
+Ejecutar la aplicación desde tu IDE o desde consola con:
 
-   ```
-   Reporte de Transacciones
-   ---------------------------------------------
-   Balance Final: 325.00
-   Transacción de Mayor Monto: ID 3 - 200.00
-   Conteo de Transacciones: Crédito: 3 Débito: 2
-   ```
+#### usando bash o cmd:
+mvn compile exec:java
 
-4. **Lenguaje de Programación:**  
-   Utiliza el lenguaje de tu preferencia. Opciones recomendadas:
+Para la generación de documentación con JavaDoc:
+#### usando bash o cmd:
+mvn javadoc:doc
 
-   - Python
-   - Java
-   - C#
-   - JavaScript (Node.js)
+## 3. ⚙️ Enfoque y Solución
+El proyecto fue desarrollado bajo una arquitectura en capas, respetando los principios SOLID y aplicando los siguientes patrones de diseño:
+* Repository Pattern.
+* DTO Pattern
 
-5. **README del Proyecto:**  
-   Incluye un archivo `README.md` con la siguiente estructura:
+El sistema de construcción utilizado fue Apache Maven, permitiendo una gestión eficiente de dependencias y compilación.
 
-   - **Introducción:** Breve descripción del reto y su propósito.
-   - **Instrucciones de Ejecución:** Cómo instalar dependencias y ejecutar la aplicación.
-   - **Enfoque y Solución:** Lógica implementada y decisiones de diseño.
-   - **Estructura del Proyecto:** Archivos y carpetas principales.
+##4. 🗂️ Estructura del Proyecto
 
-6. **Documentación y Calidad del Código:**
-   - Código bien documentado y fácil de leer.
-   - Comentarios explicando pasos clave y lógica del programa.
+```
+├── src/
+│   ├── main/
+│   │   ├── java/
+│   │   │   └── org/
+│   │   │       └── transacciones_bancarias/
+│   │   │           ├── application/
+│   │   │           │   ├── dto/                         # Clases de transferencia de datos (DTOs)
+│   │   │           │   │   └── TransactionReport.java
+│   │   │           │   └── service/                     # Lógica de negocio
+│   │   │           │       └── TransactionService.java
+│   │   │           ├── domain/
+│   │   │           │   ├── exception/                   # Clases para manejo de excepciones personalizadas
+│   │   │           │   │   └── ProcessingException.java
+│   │   │           │   └── model/                       # Entidades del dominio
+│   │   │           │       ├── Transaction.java
+│   │   │           │       └── TransactionType.java
+│   │   │           ├── infrastructure/
+│   │   │           │   └── repository/                  # Implementaciones de acceso a datos
+│   │   │           │       └── CsvTransactionRepository.java
+│   │   │           ├── util/                            # Clases utilitarias
+│   │   │           │   └── CsvParser.java
+│   │   │           └── presentation/
+│   │   │               └── console/                     # Presentación por consola
+│   │   │                   ├── ConsoleReportAppearance.java
+│   │   │                   └── Main.java                # Punto de entrada del programa
+│   └── resources/                                       # Archivos de recursos (como CSVs)
+├── test/                                                # Clases de prueba unitaria
+├── pom.xml                                              # Configuración de Maven y dependencias
+└── README.md                                            # Documentación del proyecto
+
+```
+
