@@ -4,6 +4,9 @@ import org.transacciones_bancarias.application.dto.TransactionReport;
 
 import java.io.PrintStream;
 
+/**
+ * metodo encargado de la parte visual del reporte de transacciones
+ */
 public class ConsoleReportAppareance {
     public void displayReport(TransactionReport report){
         PrintStream sys=System.out;
